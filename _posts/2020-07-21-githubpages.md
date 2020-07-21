@@ -6,7 +6,7 @@ header:
     image: "/images/perceptron/percept.jpg"
 exceprt: "........"
 mathjax: "true"
-
+---
 
 # Twitter Analysis of Influential People and Top Governement Leaders 
 
