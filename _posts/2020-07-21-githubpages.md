@@ -150,7 +150,7 @@ res=get_elements(response, tag='h2', search={'find_all': {'class_': 'twitter-twe
 str_cells=str(res)
 cleantext2=BeautifulSoup(str_cells,"lxml").get_text()
 ```
-The code below generates an empty list, extracts the text in the html tags and appends it to the list. For this particular project I used regex to extract text that had the @ sign, which would contain the twitter handles I was looking for. I really struggle with regex so I used the [RegExr](https://regexr.com/) website to assist me on this. This required importig the re(for regular expressions) module. I then stored my data in a pandas dataframe and stored it in a csv file.
+The code below generates an empty list, extracts the text in the html tags and appends it to the list. For this particular project I used regex to extract text that had the @ sign, which would contain the twitter handles I was looking for. I really struggle with regex so I used the [RegExr](https://regexr.com/) website to assist me on this. This required importing the re(for regular expressions) module. I then stored my data in a pandas dataframe.
 ```python
 dataa=[]
 for item in res:
@@ -162,6 +162,12 @@ for item in res:
 df=pd.DataFrame(dataa)
 df.columns = ["Top 10 African Influencers twitter Handles"]
 df1=df.sort_index(ascending=True)
-df2=df1.head(101)
-df2.to_csv(r'african_influencers.csv', index = False)
+
+users= []
+index=0
+while index < 100:
+    users.append(df2.iat[index,0])
+    index=index+1
 ```
+
+
