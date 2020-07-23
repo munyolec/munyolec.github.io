@@ -198,4 +198,35 @@ for target in users:
       except tweepy.TweepError :
      pass
 ```
-
+I also checked for the common hashtags used by these influential people and I was able to do that using the following method. 
+```python
+def get_tweet_details(username):
+  hashtags = []
+  mentions = []
+  tweet_count = 0
+  end_date = datetime.utcnow() - timedelta(days=30)
+  for status in Cursor(auth_api.user_timeline, id=username).items():
+    tweet_count += 1
+    if hasattr(status, "entities"):
+      entities = status.entities
+      if "hashtags" in entities:
+        for ent in entities["hashtags"]:
+          if ent is not None:
+            if "text" in ent:
+              hashtag = ent["text"]
+              if hashtag is not None:
+                hashtags.append(hashtag)
+      if "user_mentions" in entities:
+        for ent in entities["user_mentions"]:
+          if ent is not None:
+            if "screen_name" in ent:
+              name = ent["screen_name"]
+              if name is not None:
+                mentions.append(name)
+      if status.created_at < end_date        break
+  return {
+      'hashtags': hashtags,
+      'mentions': mentions,
+      'count': tweet_count
+  }
+  ```
