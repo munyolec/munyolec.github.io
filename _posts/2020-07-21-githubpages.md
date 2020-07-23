@@ -18,11 +18,10 @@ from the website. I then manipulated and cleaned the data using Python Panda's l
 
 ### Using Beautiful Soup to perform web scrapping.
 It is good practise to start by importing the necessary modules that you will need for this task
-namely; pandas, numoy, matplotlib and seaborn. The line %matplotlib inline is used to easily 
+namely; pandas, numpy, matplotlib and seaborn. The line %matplotlib inline is used to easily 
 display the plots that you will create.
 
 ``` python
-pip install lxml
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
