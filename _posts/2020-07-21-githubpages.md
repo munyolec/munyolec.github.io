@@ -16,7 +16,6 @@ their planned digital campaign. It was also  to identify the topics that are imp
 The list of top 100 African influencers were scrapped from a website called [100 most influential Twitter users in Africa](https://africafreak.com/100-most-influential-twitter-users-in-africa). I used Beautiful Soup to Scrap the twitter handles
 from the website. I then manipulated and cleaned the data using Python Panda's library.
 
-### Using Beautiful Soup to perform web scrapping.
 It is good practise to start by importing the necessary modules that you will need for this task
 namely; pandas, numpy, matplotlib and seaborn. The line %matplotlib inline is used to easily 
 display the plots that you will create.
@@ -145,9 +144,10 @@ def get_elements(url, tag='',search={}, fname=None):
 if get_ipython().__class__.__name__ == '__main__':
     fire(get_tag_elements
 ```    
-I passed the url to the method called simple_get(url) to get my dataset and specified the class that i wanted to get the names from which was 'twitter-tweet'
+I passed the url to the method called simple_get(url) to get my dataset and specified the html class attribute that i wanted to get the names from which was 'twitter-tweet'.
 ```python
 url=('https://africafreak.com/100-most-influential-twitter-users-in-africa')
 response=simple_get(url)
 res=get_elements(response, tag='h2', search={'find_all': {'class_': 'twitter-tweet'}})
+
 ```
