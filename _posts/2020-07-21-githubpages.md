@@ -144,10 +144,26 @@ def get_elements(url, tag='',search={}, fname=None):
 if get_ipython().__class__.__name__ == '__main__':
     fire(get_tag_elements
 ```    
-I passed the url to the method called simple_get(url) to get my dataset and specified the html class attribute that i wanted to get the names from which was 'twitter-tweet'.
+I passed the url to the method called simple_get(url) to get my dataset and specified the html class attribute that i wanted to get the names from which was 'twitter-tweet'. I used BeautifulSoup to extract the text without the html tags.
 ```python
 url=('https://africafreak.com/100-most-influential-twitter-users-in-africa')
 response=simple_get(url)
 res=get_elements(response, tag='h2', search={'find_all': {'class_': 'twitter-tweet'}})
-
+str_cells=str(res)
+cleantext2=BeautifulSoup(str_cells,"lxml").get_text()
+```
+The code below generates an empty list, extracts the text in the html tags and appends it to the list. For this particular project I used regex to extract text that had the @ sign, which would contain the twitter handles I was looking for. I really struggle with regex so I used the [RegExr](https://regexr.com/) website to assist me on this. This required importig the re(for regular expressions) module. I then stored my data in a pandas dataframe and stored it in a csv file.
+```python
+dataa=[]
+for item in res:
+    if '(@' in item:
+        cleant = re.compile(r'@(\w*)')
+        cleant2=(re.search(cleant,item))        
+        if cleant2.group(0) is not None:
+            dataa.append({'value': cleant2.group(0) })        
+df=pd.DataFrame(dataa)
+df.columns = ["Top 10 African Influencers twitter Handles"]
+df1=df.sort_index(ascending=True)
+df2=df1.head(101)
+df2.to_csv(r'african_influencers.csv', index = False)
 ```
