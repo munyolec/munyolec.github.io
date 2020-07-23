@@ -229,4 +229,26 @@ def get_tweet_details(username):
       'mentions': mentions,
       'count': tweet_count
   }
-  ```
+  
+  
+  def get_hashtags(user):
+  try:
+    hashuser = auth_api.get_user(user)
+    user_name=hashuser.screen_name
+    #print("printing user details for "+user)
+    details=get_tweet_details(user)
+    hash=Counter(details['hashtags']).most_common(20)
+    return {'user_name': user, 'hashtags': hash}
+  except tweepy.TweepError:
+    #print('Treepy Error!!')
+    return 
+  
+def arrange_user_hashtags():
+  user_hashtags=[]
+  for user in users:
+    hash=get_hashtags(user)
+    user_hashtags.append(hash)
+  return user_hashtags
+
+user_details=arrange_user_hashtags()
+```
