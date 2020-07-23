@@ -252,3 +252,33 @@ def arrange_user_hashtags():
 
 user_details=arrange_user_hashtags()
 ```
+To check which influencer had included which hashtag in their tweets. I checked for substring in string and then looped through each influencer. I created an array that had the hashtags I was looking for. I then grouped all the users that had used a particular hashtag into categories based on the hashtag.
+```python
+sub_list=['coronavirus','covid19','kenya','covid','africa']
+hashtag_grouping={}
+for sub in sub_list:
+  hashtag_grouping[sub] = []
+  for item in user_details:
+    if item is not None:
+      if sub in str(item['hashtags']).lower():
+        hashtag_grouping[sub].append(item['user_name'])
+new_hashtag_grouping={}
+for key in hashtag_grouping.keys():
+  new_hashtag_grouping[key]= str(hashtag_grouping[key])
+df = pd.DataFrame({key: pd.Series(value) for key, value in hashtag_grouping.items()})
+df
+```
+From the information gathered using the hashtags. I was able to make a barplot that shows the percentage of hashtags that the influencers had used in their tweets. I used matplotlib for this.
+```python
+x=sub_list
+y=[len(value) for key, value in hashtag_grouping.items()]
+#fig_dims1 = (15,15)
+#fig, ax = plt.subplots(figsize=fig_dims1)
+sns.barplot(x,y)
+plt.title("Fraction of African Influencers By Common Hashtags")
+plt.xlabel("common hashtags")
+plt.ylabel("hashtag count")
+plt.show
+```
+
+
