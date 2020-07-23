@@ -1,9 +1,9 @@
 ---
-title: Twitter Analysis of Influential People and Top Governement Leaders "
+title: Twitter Analysis of Influential People and Top Governement Leaders 
 data: 2020-07-21
 tags: [data science, tweepy, twitter analysis]
 header:
-    image: "/images/perceptron/percept.jpg"
+    #image: "/images/perceptron/percept.jpg"
 exceprt: "........"
 mathjax: "true"
 ---
