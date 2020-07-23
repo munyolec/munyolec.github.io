@@ -280,5 +280,7 @@ plt.xlabel("common hashtags")
 plt.ylabel("hashtag count")
 plt.show
 ```
+![image](/images/influencers_hashtags.png)
+
 
 
