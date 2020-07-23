@@ -150,7 +150,7 @@ res=get_elements(response, tag='h2', search={'find_all': {'class_': 'twitter-twe
 str_cells=str(res)
 cleantext2=BeautifulSoup(str_cells,"lxml").get_text()
 ```
-The code below generates an empty list, extracts the text in the html tags and appends it to the list. For this particular project I used regex to extract text that had the @ sign, which would contain the twitter handles I was looking for. I really struggle with regex so I used the [RegExr](https://regexr.com/) website to assist me on this. This required importing the re(for regular expressions) module. I then stored my data in a pandas dataframe.
+The code below generates an empty list, extracts the text in the html tags and appends it to the list. For this particular project I used regex to extract text that had the @ sign, which would contain the twitter handles I was looking for. I really struggle with regex so I used the [RegExr](https://regexr.com/) website to guide me on this. This required importing the re(for regular expressions) module. I then stored my data in a pandas dataframe.
 ```python
 dataa=[]
 for item in res:
@@ -169,5 +169,33 @@ while index < 100:
     users.append(df2.iat[index,0])
     index=index+1
 ```
-
+I then used the tweepy API to get twitter data such as number of followers and total number of retweets and likes for each user. From there I calculated popularity score by summing total number of retweets and likes, reach score was calculated by getting the difference between the number of followers and number of friends. From this data one can choose to rank an influencer either using number of followers, reach score or popularity score. 
+```python 
+my_demo=[]
+for target in users:
+    try: #catch an error incase the twitter username doesnot exist
+        tweets1 = auth_api.user_timeline(screen_name=leader1 ,count=5)#recent 5 tweets
+        tweet_list1 = [tweet1 for tweet1 in tweets1]     
+        item_11 = auth_api.get_user(leader1)
+        name1=item_11.screen_name
+        followers1=item_11.followers_count
+        friends1=item_11.friends_count
+        tweets1=item_11.statuses_count  
+        reach1=followers1-friends1
+        account_age_days1=delta1.days
+        counter1 = 0              #initialize retweet counter to zero
+        favcounter1= 0        #initialize like counter to zero
+        rtcounter1=0
+        ftcounter1=0
+        for tweet1 in tweet_list1:    #for each tweet in the tweet list
+            retweetcount1 = tweet1.retweet_count #get the retweet count of that tweet
+            rtcounter1+=retweetcount1 
+            favorite1 = tweet1.favorite_count  #get the likes of that tweet
+            ftcounter1+=favorite1
+            counter1 += retweetcount1 #updating total number of retweets
+            favcounter1 += favorite1  #updating total number of likes
+            popularity_score1 = rtcounter1 + ftcounter1 
+      except tweepy.TweepError :
+     pass
+```
 
